@@ -23,6 +23,15 @@ async def bot_start(event):
     /setname 设置命令别名。
     /setshort 设置自定义按钮，每次设置会覆盖原设置。
     /snode 选择脚本执行，只能选择/scripts和/own目录下的脚本，选择完后直接后台运行，不影响BOT响应其他命令。 
+    /getwendu 获取温度
+    /getbook 获取百度热搜小说
+    /getmovie 获取百度热搜电影
+    /gettv 获取百度热搜电视剧
+    /getcar 获取百度热搜汽车
+    /getgame 获取百度热搜游戏
+    /gettime 获取机器人当前时间
+    /getweibo 获取微博实时热点详情
+    /getweibo1 获取微博实时热点列表
     
     此外，直接发送文件至BOT，会让您选择保存到目标文件夹，支持保存并运行。'''
     await jdbot.send_message(chat_id, msg)
