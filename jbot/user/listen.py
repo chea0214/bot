@@ -38,9 +38,9 @@ async def subupdate_log(event):
     text = "开始提取日志..."
     res = requests.get(QL_URL + "/open/subscriptions", headers=headers).json()
     if res['code'] == 200:
-        for env in res['data']:
-            if env['name'] == KuName:
-                res = requests.get(QL_URL + "/open/subscriptions/1/log", headers=headers).json()
+        for subs in res['data']:
+            if subs['name'] == KuName:
+                res = requests.get(QL_URL + "/open/subscriptions/" + str(subs['id']) + "/log", headers=headers).json()
                 if res['code'] == 200:
                     text = res['data']
                 else:
