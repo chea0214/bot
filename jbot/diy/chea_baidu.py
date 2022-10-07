@@ -29,7 +29,7 @@ async def book(event):
         await jdbot.send_message(chat_id, f'错误：{str(e)}')
 
 
-@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getdianying')))
+@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getmovie')))
 async def dianying(event):
     msg = await jdbot.send_message(chat_id, '正在查询您的命令，请稍后')
     try:
@@ -40,7 +40,7 @@ async def dianying(event):
         await jdbot.send_message(chat_id, f'错误：{str(e)}')
 
 
-@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getdianshiju')))
+@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/gettv')))
 async def dianshiju(event):
     msg = await jdbot.send_message(chat_id, '正在查询您的命令，请稍后')
     try:
@@ -51,22 +51,22 @@ async def dianshiju(event):
         await jdbot.send_message(chat_id, f'错误：{str(e)}')
 
 
-@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getzongyi')))
-async def zongyi(event):
+@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getcar')))
+async def qiche(event):
     msg = await jdbot.send_message(chat_id, '正在查询您的命令，请稍后')
     try:
-        text = getbaidu("variety")
+        text = getbaidu("car")
         await jdbot.delete_messages(chat_id, msg)
         await jdbot.send_message(chat_id, text)
     except Exception as e:
         await jdbot.send_message(chat_id, f'错误：{str(e)}')
 
 
-@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getqiche')))
+@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getgame')))
 async def qiche(event):
     msg = await jdbot.send_message(chat_id, '正在查询您的命令，请稍后')
     try:
-        text = getbaidu("car")
+        text = getbaidu("game")
         await jdbot.delete_messages(chat_id, msg)
         await jdbot.send_message(chat_id, text)
     except Exception as e:
