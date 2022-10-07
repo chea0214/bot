@@ -50,9 +50,12 @@ def json_path_value(jsondict, path):
 
 
 def getwendu():
-    txt = '周至县天气预报'
-    url = 'http://www.nmc.cn/rest/weather?stationid=57032'
     try:
+        url = "http://www.nmc.cn/rest/position"
+        html = requests.get(url)
+        jsont = (html.json())
+        txt = jsont['city'] + '天气预报'
+        url = 'http://www.nmc.cn/rest/weather?stationid=' + jsont['code']
         html = requests.get(url)
         jsont = (html.json())
         txt += '\n        温度：' + str(json_path_value(jsont, 'data.real.weather.temperature'))
