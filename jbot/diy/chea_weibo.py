@@ -6,18 +6,29 @@ from .. import jdbot, chat_id
 from requests_html import HTMLSession
 
 
-@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getweibo')))
+@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getweibo$')))
 async def wendu(event):
     msg = await jdbot.send_message(chat_id, '正在查询您的命令，请稍后')
     try:
-        text = getweibo()
+        text = getweibo(True)
         await jdbot.delete_messages(chat_id, msg)
         await jdbot.send_message(chat_id, text)
     except Exception as e:
         await jdbot.send_message(chat_id, f'错误：{str(e)}')
 
 
-def getweibo():
+@jdbot.on(events.NewMessage(chats=chat_id, pattern=('^/getweibo1$')))
+async def wendu1(event):
+    msg = await jdbot.send_message(chat_id, '正在查询您的命令，请稍后')
+    try:
+        text = getweibo(False)
+        await jdbot.delete_messages(chat_id, msg)
+        await jdbot.send_message(chat_id, text)
+    except Exception as e:
+        await jdbot.send_message(chat_id, f'错误：{str(e)}')
+
+
+def getweibo(xq):
     url = "https://weibo.com/a/hot/realtime"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0",
@@ -28,6 +39,7 @@ def getweibo():
     }
     tt = ''
     i = 0
+    des = ""
     try:
         session = HTMLSession()
         response = session.get(url, headers=headers)
@@ -40,9 +52,12 @@ def getweibo():
                 title = r.html.xpath('//h2[@class="list_title"]/text()', first=True).strip()
                 title = title.strip('\n')
                 title = title.replace('#', '')
-                des = r.html.xpath('//div[@class="list_des"]/text()', first=True).strip()
-                des = des.replace('\n', '')
-                tt += str(i) + '. ' + title + '\n' + des + '\n'
+                if xq:
+                    des = r.html.xpath('//div[@class="list_des"]/text()', first=True).strip()
+                    des = des.replace('\n', '')
+                    tt += str(i) + '. ' + title + '\n' + des + '\n'
+                else:
+                    tt += str(i) + '. ' + title + '\n'
                 if len(tt) > 3900:
                     break
             return tt

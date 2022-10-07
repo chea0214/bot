@@ -23,13 +23,14 @@ async def bot_start(event):
     /setname 设置命令别名。
     /setshort 设置自定义按钮，每次设置会覆盖原设置。
     /snode 选择脚本执行，只能选择/scripts和/own目录下的脚本，选择完后直接后台运行，不影响BOT响应其他命令。 
+    /gettime 获取机器人当前时间
     /getwendu 获取温度
+    /getbaidu 获取百度热搜
     /getbook 获取百度热搜小说
     /getmovie 获取百度热搜电影
     /gettv 获取百度热搜电视剧
     /getcar 获取百度热搜汽车
     /getgame 获取百度热搜游戏
-    /gettime 获取机器人当前时间
     /getweibo 获取微博实时热点详情
     /getweibo1 获取微博实时热点列表
     

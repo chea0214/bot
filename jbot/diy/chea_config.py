@@ -9,13 +9,13 @@ from .. import jdbot, chat_id, CONFIG_DIR
 # 定义自己的函数名称
 async def hi(event):
     msg = await jdbot.send_message(chat_id, '正在查询您的常用命令，请稍后')
-    CONFIG_SH_FILE = f'{CONFIG_DIR}/config.sh'
-    cookies = ''
-    with open(CONFIG_SH_FILE, 'r', encoding='utf-8') as f:
+    ENV_SH_FILE = f'{CONFIG_DIR}/env.sh'
+    cookies = '找到Cookie如下：\n'
+    with open(ENV_SH_FILE, 'r', encoding='utf-8') as f:
         lines = f.readlines()
     try:
         for line in lines:
-            if line.find('Cookie') == 0:
+            if line.find('JD_COOKIE') != -1:
                 cookies += line
         await jdbot.delete_messages(chat_id, msg)
         await jdbot.send_message(chat_id, cookies)

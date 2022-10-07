@@ -2,9 +2,18 @@
 from telethon import events
 #从上级目录引入 jdbot,chat_id变量
 from .. import jdbot,chat_id
+import time
+
+
 #格式基本固定，本例子表示从chat_id处接收到包含hello消息后，要做的事情
 @jdbot.on(events.NewMessage(chats=chat_id,pattern=('hello')))
 #定义自己的函数名称
 async def hi(event):
     #do something
     await jdbot.send_message(chat_id,'hello')
+
+
+@jdbot.on(events.NewMessage(chats=chat_id,pattern=('/gettime')))
+async def retime(event):
+    txt = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    await jdbot.send_message(chat_id, str(txt))
