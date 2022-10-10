@@ -1,5 +1,4 @@
 from .login import user
-from .. import chat_id
 from telethon import events
 import requests
 import re
@@ -10,9 +9,14 @@ Client_Id = "4V-ZvI8Y_NK6"
 Client_Secret = "c4-KUDKG74Zq6Ux5Wm0fW1-2"
 Authorization = ""
 
+# 青龙订阅中设置的名称
 KuName = "Faker2 助力池版"
+# 仓库更新频道
 listen_CK = -1001253455116
+# 更新频道每次更新的关键字
 KeyWord = "本次变动如下"
+# 仓库更新日志发送到的ID，可以是群、私聊等
+ChatID = 5270839360
 
 listen_CH = -1001670294604
 
@@ -45,11 +49,12 @@ async def subupdate_log(event):
                     text = res['data']
                 else:
                     text = "日志提取失败"
+                break
         else:
             text = "未找到关键字仓库"
     else:
         text = "订阅获取失败"
-    await event.edit(res['data'])
+    await event.edit(text)
 
 
 @user.on(events.NewMessage(incoming=True))
@@ -58,7 +63,7 @@ async def mylisten(event):
         if event.chat_id == listen_CK:
             res = re.search(KeyWord, event.raw_text)
             if res:
-                await user.send_message(chat_id, str("更新仓库"))
+                await user.send_message(ChatID, str("更新仓库"))
                 LQCK()
 #       elif event.chat_id == listen_CH:
 #           res = re.findall("LUCK_DRAW_URL=\"(\S*)\"", event.raw_text)
@@ -76,6 +81,7 @@ def LQCK():
                     text = "订阅更新开始..."
                 else:
                     text = "订阅更新未执行，请检查"
+                break
         else:
             text = "未找到拉库设置的名称"
     else:
