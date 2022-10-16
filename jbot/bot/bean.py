@@ -40,7 +40,7 @@ async def bot_bean(event):
             res = get_bean_data(int(text))
             if res['code'] != 200:
                 await jdbot.delete_messages(chat_id, msg)
-                await jdbot.send_message(chat_id, f'something wrong,I\'m sorry\n{str(res)}')
+                await jdbot.send_message(chat_id, f'something wrong,1,I\'m sorry\n{str(res)}')
             else:
                 creat_bean_count(res['data'][3], res['data']
                                  [0], res['data'][1], res['data'][2][1:])
@@ -56,7 +56,7 @@ async def bot_bean(event):
             await jdbot.delete_messages(chat_id, msg)
             await jdbot.send_message(chat_id, '青龙暂仅支持/bean n n为账号数字')
     except Exception as e:
-        await jdbot.send_message(chat_id, f'something wrong,I\'m sorry\n{str(e)}')
+        await jdbot.send_message(chat_id, f'something wrong,2,I\'m sorry\n{str(e)}')
         logger.error(f'something wrong,I\'m sorry{str(e)}')
 
 if ch_name:
