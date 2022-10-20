@@ -13,8 +13,8 @@ Authorization = ""
 KuName = "Faker2 助力池版"
 # 仓库更新频道
 listen_CK = -1001253455116
-# 更新频道每次更新的关键字
-KeyWord = "本次变动如下"
+# 更新频道每次更新的关键字,支持正则表达式
+KeyWord = "本次变动如下】\n([\S\n]*)【"
 # 仓库更新日志发送到的ID，可以是群、私聊等
 ChatID = 5270839360
 
@@ -61,9 +61,9 @@ async def subupdate_log(event):
 async def mylisten(event):
     if event.is_channel:
         if event.chat_id == listen_CK:
-            res = re.search(KeyWord, event.raw_text)
+            res = re.findall(KeyWord, event.raw_text)
             if res:
-                await user.send_message(ChatID, str("更新仓库"))
+                await user.send_message(ChatID, str("仓库更新:" + res[0]))
                 LQCK()
 #       elif event.chat_id == listen_CH:
 #           res = re.findall("LUCK_DRAW_URL=\"(\S*)\"", event.raw_text)
