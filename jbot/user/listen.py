@@ -4,7 +4,7 @@ import requests
 import re
 
 
-QL_URL = "http://172.17.0.5:5700"
+QL_URL = "http://172.17.0.4:5700"
 Client_Id = "4V-ZvI8Y_NK6"
 Client_Secret = "c4-KUDKG74Zq6Ux5Wm0fW1-2"
 Authorization = ""
@@ -14,7 +14,7 @@ KuName = "Faker2 助力池版"
 # 仓库更新频道
 listen_CK = -1001253455116
 # 更新频道每次更新的关键字,支持正则表达式
-KeyWord = "本次变动如下】\n([\S\n]*)【"
+KeyWord = r'本次变动如下】\n([\S\n]*)【'
 # 仓库更新日志发送到的ID，可以是群、私聊等
 ChatID = 5270839360
 
@@ -61,14 +61,17 @@ async def subupdate_log(event):
 async def mylisten(event):
     if event.is_channel:
         if event.chat_id == listen_CK:
+            await user.send_message(ChatID, event.raw_text)
             res = re.findall(KeyWord, event.raw_text)
             if res:
                 await user.send_message(ChatID, str("仓库更新:" + res[0]))
                 LQCK()
-#       elif event.chat_id == listen_CH:
-#           res = re.findall("LUCK_DRAW_URL=\"(\S*)\"", event.raw_text)
-#           if res:
-#               ZXRW("LUCK_DRAW_URL", res[0], "jd_luck_draw.js")
+            else:
+                await user.send_message(ChatID, str(res))
+#        elif event.chat_id == listen_CH:
+#            res = re.findall("LUCK_DRAW_URL=\"(\S*)\"", event.raw_text)
+#            if res:
+#                ZXRW("LUCK_DRAW_URL", res[0], "jd_luck_draw.js")
 
 
 def LQCK():
