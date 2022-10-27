@@ -62,12 +62,9 @@ async def mylisten(event):
     if event.is_channel:
         if event.chat_id == listen_CK:
             await user.send_message(ChatID, event.raw_text)
-            res = re.findall(KeyWord, event.raw_text)
             if res:
-                await user.send_message(ChatID, str("仓库更新:" + res[0]))
+                await user.send_message(ChatID, str("仓库更新:\n" + res[0]))
                 LQCK()
-            else:
-                await user.send_message(ChatID, str(res))
 #        elif event.chat_id == listen_CH:
 #            res = re.findall("LUCK_DRAW_URL=\"(\S*)\"", event.raw_text)
 #            if res:
