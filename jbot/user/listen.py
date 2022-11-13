@@ -4,7 +4,7 @@ import requests
 import re
 
 
-QL_URL = "http://172.17.0.4:5700"
+QL_URL = "http://127.0.0.1:5700"
 Client_Id = "4V-ZvI8Y_NK6"
 Client_Secret = "c4-KUDKG74Zq6Ux5Wm0fW1-2"
 Authorization = ""
